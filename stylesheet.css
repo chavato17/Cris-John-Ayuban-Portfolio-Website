@@ -467,7 +467,7 @@ button:active {
 
 
 .abtme-infocard{
-    min-width: fit-content;
+    min-width: 280px;
     color: #000;
     flex-grow: 1;
     padding: 24px;
@@ -1635,7 +1635,6 @@ body.no-scroll {
     }
 
     .abtme-infocard{
-        min-width: max-content;
         max-width: inherit;
         padding: 16px;
     }
