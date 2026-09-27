@@ -871,6 +871,7 @@ li span{
     height: max-content;
     object-fit: cover;
     display: block;
+    aspect-ratio: 4/3;
 }
 
 .certs-img-cont{
