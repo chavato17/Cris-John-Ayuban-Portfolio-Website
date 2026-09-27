@@ -196,6 +196,19 @@ window.addEventListener('load', function () {
     }
 })();
 
+//************* NAV: SCROLL WITHOUT CHANGING URL *****************//
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e){
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
 //******* FORM  ************//
 
 let form = document.querySelector("form")
