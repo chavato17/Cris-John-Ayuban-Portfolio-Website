@@ -869,6 +869,8 @@ li span{
 .certs-img-cont img{
     width: 100%;
     height: max-content;
+    object-fit: cover;
+    display: block;
 }
 
 .certs-img-cont{
