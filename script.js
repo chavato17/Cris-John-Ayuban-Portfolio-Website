@@ -59,7 +59,7 @@ window.addEventListener("DOMContentLoaded", initTextRotator);
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    let scrollPos = 0; // current translateX offset in px
+    let scrollPos = 0;
 
     function getStep(){
         const gap = parseFloat(getComputedStyle(container).gap) || 0;
@@ -72,7 +72,7 @@ window.addEventListener("DOMContentLoaded", initTextRotator);
 
     function apply(){
         const maxScroll = getMaxScroll();
-        scrollPos = Math.min(scrollPos, maxScroll); // re-clamp on resize too
+        scrollPos = Math.min(scrollPos, maxScroll);
         container.style.transform = `translateX(-${scrollPos}px)`;
         prevBtn.disabled = scrollPos <= 0;
         nextBtn.disabled = scrollPos >= maxScroll;
@@ -80,16 +80,16 @@ window.addEventListener("DOMContentLoaded", initTextRotator);
 
     function next(){
         const maxScroll = getMaxScroll();
-        scrollPos = Math.min(scrollPos + getStep(), maxScroll); // snaps to show last card fully
+        scrollPos = Math.min(scrollPos + getStep(), maxScroll);
         apply();
     }
 
     function prev(){
-        scrollPos = Math.max(scrollPos - getStep(), 0); // snaps to show first card fully
+        scrollPos = Math.max(scrollPos - getStep(), 0);
         apply();
     }
 
-    prevBtn.addEventListener('click', next === next ? prev : prev); // (kept simple below)
+    prevBtn.addEventListener('click', next === next ? prev : prev);
     nextBtn.addEventListener('click', next);
     prevBtn.addEventListener('click', prev);
 
@@ -102,40 +102,79 @@ window.addEventListener("DOMContentLoaded", initTextRotator);
     apply();
 })();
 
+//************* HERO FADE IN *************//
+(function(){
+    const preloader = document.getElementById('preloader');
+    const hero = document.getElementById('hero');
 
+    document.body.classList.add('no-scroll');
 
+    function hidePreloader(){
+        preloader.classList.add('loaded');
+        document.body.classList.remove('no-scroll');
+        hero.classList.add('hero-loaded');
+    }
+
+    window.addEventListener('load', () => {
+        setTimeout(hidePreloader, 300);
+    });
+
+    if (document.readyState === 'complete') {
+        setTimeout(hidePreloader, 300);
+    }
+})();
+
+//*************** SECTIONS FADE IN ******************//
 
 (function(){
     const faders = document.querySelectorAll('.fade-in, .fade-in-left');
 
     const appearOptions = {
-        threshold: 0.15,           // % of element visible before triggering
-        rootMargin: "0px 0px -80px 0px"  // triggers slightly before fully in view
+        threshold: 0,
+        rootMargin: "0px 0px -50px 0px"
     };
 
     const appearOnScroll = new IntersectionObserver(function(entries, observer){
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // stop watching once shown
+            observer.unobserve(entry.target);
         });
     }, appearOptions);
 
-    faders.forEach(el => appearOnScroll.observe(el));
+    function markAlreadyPassedSections(){
+        faders.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.bottom < window.innerHeight) {
+                el.classList.add('visible');
+                appearOnScroll.unobserve(el);
+            } else {
+                appearOnScroll.observe(el);
+            }
+        });
+    }
+
+    window.addEventListener('load', markAlreadyPassedSections);
+
+    window.addEventListener('hashchange', markAlreadyPassedSections);
 })();
 
 
 //************* REFRESH SCROLL TO TOP *****************// 
 
-// if ('scrollRestoration' in history) {
-//     history.scrollRestoration = 'manual';
-// }
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
 
+window.addEventListener('beforeunload', function () {
+    window.scrollTo(0, 0);
+});
 
-// window.addEventListener('beforeunload', function () {
-//     window.scrollTo(0, 0);
-// });
-
+window.addEventListener('load', function () {
+    if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+});
 
 //********************** LOADER ******************//
 
@@ -157,30 +196,7 @@ window.addEventListener("DOMContentLoaded", initTextRotator);
     }
 })();
 
-
-
-
-(function(){
-    const preloader = document.getElementById('preloader');
-    const hero = document.getElementById('hero');
-
-    document.body.classList.add('no-scroll');
-
-    function hidePreloader(){
-        preloader.classList.add('loaded');
-        document.body.classList.remove('no-scroll');
-        hero.classList.add('hero-loaded'); // fade in just the hero
-    }
-
-    window.addEventListener('load', () => {
-        setTimeout(hidePreloader, 300);
-    });
-
-    if (document.readyState === 'complete') {
-        setTimeout(hidePreloader, 300);
-    }
-})();
-
+//******* FORM  ************//
 
 let form = document.querySelector("form")
 
