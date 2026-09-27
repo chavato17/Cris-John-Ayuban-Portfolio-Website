@@ -1203,7 +1203,7 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus, select:focu
     box-shadow: 4px 4px 0 #000;
 }
 
-input[type="text"], input[type="email"], textarea, select {
+input[type="text"], input[type="email"], input[type="submit"], textarea, select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
