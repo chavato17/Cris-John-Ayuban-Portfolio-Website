@@ -568,6 +568,11 @@ li span{
     background-color: #88D498; 
 }
 
+.skill_and_softskill-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
 
 .skills-stack-container{
     background-color: #fff;
@@ -594,20 +599,15 @@ li span{
     display: flex;
     gap: 4px;
     padding: 8px;
+    font-size: 17px;
     align-items: center;
 }
 
 .stack img, .tools img{
     width: 20px;
     aspect-ratio: 1/1;
-    border: 2px #000 solid;
-    padding: 1px;
     background-color: #F5F0E8;
 }
-
-
-
-
 
 .skills-tools-container{
     display: flex;
@@ -633,6 +633,7 @@ li span{
     box-shadow: 4px 4px 0 0 #000;
     align-items: center;
     display: flex;
+    font-size: 17px;
     gap: 8px;
     padding: 8px;
     align-items: center;
@@ -640,7 +641,7 @@ li span{
 
 
 .softskills{
-    gap: clamp(4px, 2.5vw, 32px);
+    gap: clamp(12px, 4vw, 32px);
     padding: 0 8px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -770,7 +771,6 @@ li span{
 .projorange{background-color: #FFA552;}
 .projblue{background-color: #0a66c2;}
 .projyellow{background-color: #FFD700;}
-.projsoon{background-color: #F1BB43;}
 
 .project-cardfooter a{
     font-size: clamp(0.7rem, 1.1vw, 1.6rem);
@@ -1598,7 +1598,7 @@ body.no-scroll {
     
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
     
     .skills-container{
         flex-direction: column;
